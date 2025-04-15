@@ -1,0 +1,34 @@
+.root {
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.button {
+    -fx-background-color: #4285f4;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding: 8 16;
+    -fx-background-radius: 4;
+}
+
+.button:hover {
+    -fx-background-color: #3367d6;
+}
+
+.text-field, .password-field {
+    -fx-padding: 8;
+    -fx-background-radius: 4;
+}
+
+#logoutButton {
+    -fx-background-color: #db4437;
+}
+
+#logoutButton:hover {
+    -fx-background-color: #c31c0d;
+}
+
+.header-label {
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+}
