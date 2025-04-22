@@ -11,6 +11,10 @@ module com.masofino.birp.chatclient {
     requires com.google.gson;
     opens com.masofino.birp.chatclient.api to com.google.gson;
     requires java.net.http;
+    requires okhttp3;
+    requires annotations;
+    requires kotlin.stdlib;           // Kotlin core runtime
+    requires kotlin.stdlib.jdk8;      // extensions (Intrinsics, etc.)
 
     opens com.masofino.birp.chatclient to javafx.fxml;
     exports com.masofino.birp.chatclient;

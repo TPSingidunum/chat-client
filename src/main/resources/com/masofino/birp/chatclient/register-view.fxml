@@ -8,15 +8,20 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" spacing="20.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.masofino.birp.chatclient.RegisterController">
+<VBox alignment="CENTER" spacing="20.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.masofino.birp.chatclient.controllers.RegisterController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
     <children>
-        <Label styleClass="header-label" text="Chat Client - Register" textAlignment="CENTER" />
+        <Label text="Chat Client - Register" textAlignment="CENTER">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
 
         <VBox spacing="10.0" alignment="CENTER" maxWidth="300.0">
             <TextField fx:id="usernameField" promptText="Username" />
+            <TextField fx:id="emailField" promptText="Email" />
             <PasswordField fx:id="passwordField" promptText="Password" />
             <PasswordField fx:id="confirmPasswordField" promptText="Confirm Password" />
 
@@ -25,7 +30,7 @@
             <Label text="Already have an account?" />
             <Button fx:id="loginNavigationButton" text="Login" onAction="#onLoginNavigationClick" />
 
-            <Label fx:id="errorMessageLabel" textFill="RED" />
+            <Label fx:id="errorMessageLabel" textFill="RED" wrapText="true" />
         </VBox>
     </children>
 </VBox>
