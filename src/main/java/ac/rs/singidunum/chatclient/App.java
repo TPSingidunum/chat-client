@@ -1,11 +1,13 @@
 package ac.rs.singidunum.chatclient;
 
 import ac.rs.singidunum.chatclient.configs.AppConfig;
+import ac.rs.singidunum.chatclient.configs.DbConfig;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 
 public class App extends Application {
@@ -18,9 +20,8 @@ public class App extends Application {
         stage.setScene(scene);
 
         // Config Service
-//        AppConfig appConfig = AppConfig.getInstance();
-//        System.out.println("DB: " + appConfig.getProperty("db.path"));
-//        appConfig.setProperty("db.pass", "Teodor");
+        AppConfig appConfig = AppConfig.getInstance();
+        DbConfig db = DbConfig.getInstance();
 
         stage.show();
     }

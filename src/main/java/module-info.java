@@ -9,6 +9,9 @@ module ac.rs.singidunum.chatclient {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
+    requires java.sql;
+    requires org.jooq;
+    requires io.github.willena.sqlitejdbc;
 
     opens ac.rs.singidunum.chatclient to javafx.fxml;
     exports ac.rs.singidunum.chatclient;

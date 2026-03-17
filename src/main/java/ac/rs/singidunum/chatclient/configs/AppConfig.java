@@ -71,6 +71,10 @@ public class AppConfig {
         return (String) properties.getOrDefault(key, null);
     }
 
+    public String getDbPath() {
+        return (String) properties.getOrDefault("db.path", DEFAULT_DB_PATH);
+    }
+
     public void setProperty(String key, String value) {
         properties.setProperty(key, value);
         saveProperties();
