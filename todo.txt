@@ -1,5 +1,11 @@
 # Config
 AppConfig
+
+Configuracij na nivou aplikacije:
+ 1. Gde se nalaze sertifikati
+ 2. Gde nam je baza
+ 3. Ostali parametri
+
 DbConfig
 StompConfig
 
