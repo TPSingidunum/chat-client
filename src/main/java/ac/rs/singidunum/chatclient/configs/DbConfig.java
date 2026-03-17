@@ -86,6 +86,10 @@ public class DbConfig {
                 """);
     }
 
+    public void validateConnection() {
+        dsl.fetch("SELECT 1");
+    }
+
     public void close() {
         try {
             if ( connection != null && !connection.isClosed()) {
