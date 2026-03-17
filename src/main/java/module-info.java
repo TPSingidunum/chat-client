@@ -12,4 +12,6 @@ module ac.rs.singidunum.chatclient {
 
     opens ac.rs.singidunum.chatclient to javafx.fxml;
     exports ac.rs.singidunum.chatclient;
+    exports ac.rs.singidunum.chatclient.controllers;
+    opens ac.rs.singidunum.chatclient.controllers to javafx.fxml;
 }

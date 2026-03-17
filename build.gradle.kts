@@ -50,6 +50,9 @@ dependencies {
     }
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+
+    implementation("io.github.willena:sqlite-jdbc:3.51.2.0")
+    implementation("org.jooq:jooq:3.20.11")
 }
 
 tasks.withType<Test> {
