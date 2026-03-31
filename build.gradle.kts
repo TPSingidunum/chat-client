@@ -53,6 +53,10 @@ dependencies {
 
     implementation("io.github.willena:sqlite-jdbc:3.51.2.0")
     implementation("org.jooq:jooq:3.20.11")
+
+    implementation("org.bouncycastle:bcprov-jdk18on:1.83")
+    implementation("org.bouncycastle:bcpkix-jdk18on:1.83")
+    implementation("org.bouncycastle:bcutil-jdk18on:1.83")
 }
 
 tasks.withType<Test> {
