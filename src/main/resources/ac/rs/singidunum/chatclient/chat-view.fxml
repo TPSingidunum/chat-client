@@ -33,7 +33,7 @@
                                text="Connected"/>
                         <HBox HBox.hgrow="ALWAYS"/>
                         <Button fx:id="logoutButton" text="Logout"
-                                onAction=""
+                                onAction="#onLogoutAction"
                                 style="-fx-font-size: 11;"/>
                     </children>
                 </HBox>

@@ -21,12 +21,6 @@
             </Label>
             <VBox prefWidth="100.0" spacing="10.0">
                <children>
-                  <Label text="Username:" />
-                  <TextField fx:id="usernameField" promptText="Enter your username" />
-               </children>
-            </VBox>
-            <VBox prefWidth="100.0" spacing="10.0">
-               <children>
                   <Label text="Password:" />
                   <PasswordField fx:id="passwordField" promptText="Enter your password" />
                </children>

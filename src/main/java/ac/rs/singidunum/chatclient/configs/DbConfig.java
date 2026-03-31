@@ -29,13 +29,9 @@ public class DbConfig {
         return instance;
     }
 
-    public void initializeDb(String password) {
+    public void initializeDb(String password, Path path) {
         try {
-            File dbFile = new File(appConfig.getDbPath());
-            String dbPath = System.getProperty("user.dir") + "\\" + dbFile.getParent();
-            Files.createDirectories(Path.of(dbPath));
-
-            String url = "jdbc:sqlite:" + appConfig.getDbPath();
+            String url = "jdbc:sqlite:" + path.toString();
 
             Properties pros = SQLiteMCChacha20Config
                     .getDefault()
@@ -50,9 +46,6 @@ public class DbConfig {
 
         } catch (SQLException e) {
             System.out.println("Greska prilikom inicializacije baze");
-            //throw new RuntimeException(e);
-        } catch (IOException e) {
-            System.out.println("Greska prilikom pravljenja baze");
             //throw new RuntimeException(e);
         }
     }

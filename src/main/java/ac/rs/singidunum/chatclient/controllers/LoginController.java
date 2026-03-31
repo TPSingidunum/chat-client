@@ -9,28 +9,26 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class LoginController {
-
-    public TextField usernameField;
+    public Label errorLabel;
     private DbConfig dbConfig = DbConfig.getInstance();
 
     @FXML
     public PasswordField passwordField;
 
-    @FXML
-    private Label welcomeText;
-
-    @FXML
-    protected void login() {
+    public void onLoginClick(ActionEvent actionEvent) {
         if (passwordField.getText().isEmpty()) {
-            welcomeText.setText("Nisi uneo sifru");
+            errorLabel.setText("Password is empty");
         }
 
-        System.out.println("Sifra koriska: " + passwordField.getText());
-        dbConfig.initializeDb(passwordField.getText());
+        dbConfig.connect(passwordField.getText());
+        try {
+            dbConfig.validateConnection();
+        } catch (Exception e) {
+            errorLabel.setText("Wrong password");
+            return;
+        }
 
-    }
-
-    public void onLoginClick(ActionEvent actionEvent) {
+        SceneManager.getInstance().switchScene("chat-view");
     }
 
     public void onClearClick(ActionEvent actionEvent) {
