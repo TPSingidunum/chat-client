@@ -57,6 +57,8 @@ dependencies {
     implementation("org.bouncycastle:bcprov-jdk18on:1.83")
     implementation("org.bouncycastle:bcpkix-jdk18on:1.83")
     implementation("org.bouncycastle:bcutil-jdk18on:1.83")
+
+    implementation("com.squareup.okhttp3:okhttp:5.3.2")
 }
 
 tasks.withType<Test> {

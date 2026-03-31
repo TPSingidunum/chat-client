@@ -20,6 +20,7 @@ public class AppConfig {
     private static String DEFAULT_USER_KEY_PATH = "cert/user.key";
     private static String DEFAULT_SERVER_CERT_PATH = "cert/server.pem";
     private static String DEFAULT_WS_PATH = "http://localhost:8080/stomp";
+    private static String DEFAULT_HTTP_PATH = "http://localhost:8080";
 
     private AppConfig() {
         properties = new Properties();
@@ -52,6 +53,7 @@ public class AppConfig {
         properties.setProperty("user.cert", DEFAULT_USER_CERT_PATH);
         properties.setProperty("server.cert", DEFAULT_SERVER_CERT_PATH);
         properties.setProperty("app.ws", DEFAULT_WS_PATH);
+        properties.setProperty("app.http", DEFAULT_HTTP_PATH);
 
         saveProperties();
     }
