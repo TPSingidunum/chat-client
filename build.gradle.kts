@@ -59,6 +59,12 @@ dependencies {
     implementation("org.bouncycastle:bcutil-jdk18on:1.83")
 
     implementation("com.squareup.okhttp3:okhttp:5.3.2")
+
+    implementation("org.springframework:spring-websocket:6.1.12")
+    implementation("org.springframework:spring-messaging:6.1.12")
+    implementation("org.glassfish.tyrus.bundles:tyrus-standalone-client:2.2.2")
+    implementation("tools.jackson.core:jackson-databind:3.1.1")
+    implementation("jakarta.xml.bind:jakarta.xml.bind-api:4.0.5")
 }
 
 tasks.withType<Test> {

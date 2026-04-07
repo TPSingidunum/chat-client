@@ -14,6 +14,8 @@ module ac.rs.singidunum.chatclient {
     requires io.github.willena.sqlitejdbc;
     requires org.bouncycastle.provider;
     requires org.bouncycastle.pkix;
+    requires spring.websocket;
+    requires spring.messaging;
 
     opens ac.rs.singidunum.chatclient to javafx.fxml;
     exports ac.rs.singidunum.chatclient;
