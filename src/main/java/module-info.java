@@ -16,6 +16,9 @@ module ac.rs.singidunum.chatclient {
     requires org.bouncycastle.pkix;
     requires spring.websocket;
     requires spring.messaging;
+    requires com.fasterxml.jackson.databind;
+    requires com.fasterxml.jackson.core;
+    requires com.fasterxml.jackson.annotation;
 
     opens ac.rs.singidunum.chatclient to javafx.fxml;
     exports ac.rs.singidunum.chatclient;
