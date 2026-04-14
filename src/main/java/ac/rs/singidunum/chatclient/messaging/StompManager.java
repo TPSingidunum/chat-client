@@ -44,7 +44,6 @@ public class StompManager {
     }
 
     public CompletableFuture<Void> connect(String url) {
-
         setConnectionState(ConnectionState.CONNECTING);
         CompletableFuture<Void> result = new CompletableFuture<>();
 
@@ -60,15 +59,18 @@ public class StompManager {
             @Override
             public void handleException(StompSession session, StompCommand command, StompHeaders headers, byte[] payload, Throwable exception) {
                 clearSession(ConnectionState.ERROR);
-                result.completeExceptionally(exception);
+                if (!result.isDone()) {
+                    result.completeExceptionally(exception);
+                }
             }
 
             @Override
             public void handleTransportError(StompSession session, Throwable exception) {
-                setConnectionState(ConnectionState.ERROR);
-                result.completeExceptionally(exception);
+                clearSession(ConnectionState.ERROR);
+                if (!result.isDone()) {
+                    result.completeExceptionally(exception);
+                }
             }
-
         }).whenComplete((connectedSession, throwable) -> {
             if (throwable != null && !result.isDone()) {
                 clearSession(ConnectionState.ERROR);
@@ -96,13 +98,17 @@ public class StompManager {
 
         desiredSubscriptions.put(id,request);
 
-        // Is connected?
-        createLiveSubscription(request);
+        if (isConnected()) {
+            createLiveSubscription(request);
+        }
 
         return () -> unsubscribe(id);
     }
 
     private <T> void createLiveSubscription(StompSubscriptionRequest<T> request) {
+        if (!isConnected()) {
+            return;
+        }
 
         StompSession.Subscription subscription = session.subscribe(
                 request.getDestination(),
@@ -133,12 +139,26 @@ public class StompManager {
     }
 
     public void send(String destination, Object payload) {
+        if (!isConnected()) {
+            throw new IllegalStateException("STOMP is not connected.");
+        }
         session.send(destination, payload);
     }
 
     public void unsubscribe(String id) {
         desiredSubscriptions.remove(id);
         StompSession.Subscription liveSubscription = liveSubscriptions.remove(id);
+        if (liveSubscription != null) {
+            try {
+                liveSubscription.unsubscribe();
+            } catch (Exception ignored) {
+            }
+        }
+    }
+
+    public boolean isConnected() {
+        StompSession currentSession = session;
+        return currentSession != null && currentSession.isConnected();
     }
 
     private void clearSession(ConnectionState state) {
@@ -147,8 +167,11 @@ public class StompManager {
         setConnectionState(state);
     }
 
+    @SuppressWarnings("unchecked")
     private void restoreSubscriptions() {
-        desiredSubscriptions.values().forEach(this::createLiveSubscription);
+        desiredSubscriptions.values().forEach(
+                request -> createLiveSubscription((StompSubscriptionRequest<Object>) request)
+        );
     }
 
 }
