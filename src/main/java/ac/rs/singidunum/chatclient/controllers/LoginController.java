@@ -78,6 +78,8 @@ public class LoginController {
         // Proveravamo da li treba poslati serveru jos neke kljuceve
         // Dodatne operacije na lokalnom nivou
 
+        System.out.println("Login Response " + response.toString());
+
         appConfig.setUsername(profile.getUsername());
         appConfig.setEmail(profile.getEmail());
 

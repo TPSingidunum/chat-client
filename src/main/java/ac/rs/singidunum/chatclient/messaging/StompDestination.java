@@ -5,6 +5,7 @@ public enum StompDestination {
     USER_QUEUE_AUTH("/user/queue/auth"),
     USER_CONNECTED("/app/users.connected"),
     CHAT_SEND("/app/chat.send"),
+    TOPIC_USERS("/topic/users")
     ;
 
     private final String text;

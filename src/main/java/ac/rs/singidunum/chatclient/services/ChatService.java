@@ -5,14 +5,17 @@ import ac.rs.singidunum.chatclient.messaging.ConnectionState;
 import ac.rs.singidunum.chatclient.messaging.StompDestination;
 import ac.rs.singidunum.chatclient.messaging.StompManager;
 import ac.rs.singidunum.chatclient.messaging.SubscriptionHandle;
+import ac.rs.singidunum.chatclient.messaging.dtos.ActiveUsers;
 import ac.rs.singidunum.chatclient.messaging.dtos.LoginRequest;
 import ac.rs.singidunum.chatclient.messaging.dtos.LoginResponse;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Consumer;
 
 public class ChatService {
 
@@ -71,6 +74,13 @@ public class ChatService {
         }
 
         return result;
+    }
+
+    public SubscriptionHandle subscribeToUsers(
+            Consumer<ActiveUsers> onMessage,
+            Consumer<Throwable> onError
+    ) {
+        return stompManager.subscribe(StompDestination.TOPIC_USERS.toString(), ActiveUsers.class, onMessage, onError);
     }
 
     public void setConnectionState (ConnectionState state) {

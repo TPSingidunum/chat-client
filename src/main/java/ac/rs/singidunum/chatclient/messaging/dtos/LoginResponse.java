@@ -1,30 +1,30 @@
 package ac.rs.singidunum.chatclient.messaging.dtos;
 
 public class LoginResponse {
-    private String result;
-    private String token;
+    private boolean result;
+    private String text;
 
     public LoginResponse() {
     }
 
-    public LoginResponse(String result, String token) {
+    public LoginResponse(boolean result, String text) {
         this.result = result;
-        this.token = token;
+        this.text = text;
     }
 
-    public String getResult() {
+    public boolean isResult() {
         return result;
     }
 
-    public void setResult(String result) {
+    public void setResult(boolean result) {
         this.result = result;
     }
 
-    public String getToken() {
-        return token;
+    public String getText() {
+        return text;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setText(String text) {
+        this.text = text;
     }
 }
