@@ -65,6 +65,7 @@ public class RegisterController {
         File dbPath = fc.showSaveDialog(SceneManager.getPrimaryStage());
 
         DbConfig.getInstance().initializeDb(passwordField.getText(), dbPath.toPath());
+        DbConfig.getInstance().createUserProfile(usernameField.getText(), emailField.getText());
         AppConfig.getInstance().setProperty("db.path", dbPath.getPath());
 
         // Onemogucim registraciju, i postavim da podrazumevano otravaram trenutnog korisnika

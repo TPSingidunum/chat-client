@@ -1,5 +1,6 @@
 package ac.rs.singidunum.chatclient.services;
 
+import ac.rs.singidunum.chatclient.configs.AppConfig;
 import ac.rs.singidunum.chatclient.messaging.ConnectionState;
 import ac.rs.singidunum.chatclient.messaging.StompDestination;
 import ac.rs.singidunum.chatclient.messaging.StompManager;
@@ -16,10 +17,19 @@ import java.util.concurrent.atomic.AtomicReference;
 public class ChatService {
 
     private StompManager stompManager;
+    private static ChatService instance;
     private final ObjectProperty<ConnectionState> connectionState = new SimpleObjectProperty<>(ConnectionState.DISCONNECTED);
 
-    public ChatService() {
+    private ChatService() {
         this.stompManager =  new StompManager();
+    }
+
+    public static ChatService getInstance() {
+        if (instance == null) {
+            instance = new ChatService();
+        }
+
+        return instance;
     }
 
     public CompletableFuture<Void> connect(String url) {

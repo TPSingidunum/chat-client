@@ -24,6 +24,8 @@ module ac.rs.singidunum.chatclient {
     exports ac.rs.singidunum.chatclient;
     exports ac.rs.singidunum.chatclient.controllers;
     exports ac.rs.singidunum.chatclient.messaging.dtos;
+    exports ac.rs.singidunum.chatclient.database.dtos;
     opens ac.rs.singidunum.chatclient.controllers to javafx.fxml;
     opens ac.rs.singidunum.chatclient.messaging.dtos to com.fasterxml.jackson.databind;
+    opens ac.rs.singidunum.chatclient.database.dtos to org.jooq;
 }

@@ -14,6 +14,10 @@ public class AppConfig {
     private static final String CONFIG_FILE = "client.properties";
     private final Properties properties;
 
+    // LoggedIn user data
+    private String username;
+    private String email;
+
     // Podrazumevane konfiguracije
     private static String DEFAULT_DB_PATH = "db/storage";
     private static String DEFAULT_USER_CERT_PATH = "cert/user.pem";
@@ -80,5 +84,21 @@ public class AppConfig {
     public void setProperty(String key, String value) {
         properties.setProperty(key, value);
         saveProperties();
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

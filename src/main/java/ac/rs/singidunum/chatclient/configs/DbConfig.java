@@ -1,13 +1,11 @@
 package ac.rs.singidunum.chatclient.configs;
 
+import ac.rs.singidunum.chatclient.database.dtos.UserProfile;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
 import org.sqlite.mc.SQLiteMCChacha20Config;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -77,7 +75,39 @@ public class DbConfig {
                     content TEXT NOT NULL
                 )
                 """);
+
+        //wp-options
+        dsl.execute("""
+                CREATE TABLE IF NOT EXISTS profile (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    username TEXT NOT NULL,
+                    email TEXT NOT NULL
+                )
+                """);
     }
+
+    // User DB queriesS
+
+    public void createUserProfile(String username, String email) {
+        var query = dsl.insertInto(
+            DSL.table("profile"),
+                DSL.field("username"),
+                DSL.field("email")
+        );
+
+        query.values(username, email).execute();
+    }
+
+    public UserProfile getUserProfile() {
+       return dsl.select(
+               DSL.field("username", String.class).as("username"),
+               DSL.field("email", String.class).as("email")
+       )
+               .from(DSL.table("profile"))
+               .fetchOneInto(UserProfile.class);
+    }
+
+    // User DB queries
 
     public void validateConnection() {
         dsl.fetch("SELECT 1");

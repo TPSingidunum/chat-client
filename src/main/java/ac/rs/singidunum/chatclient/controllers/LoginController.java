@@ -2,6 +2,7 @@ package ac.rs.singidunum.chatclient.controllers;
 
 import ac.rs.singidunum.chatclient.configs.AppConfig;
 import ac.rs.singidunum.chatclient.configs.DbConfig;
+import ac.rs.singidunum.chatclient.database.dtos.UserProfile;
 import ac.rs.singidunum.chatclient.messaging.ConnectionState;
 import ac.rs.singidunum.chatclient.messaging.dtos.LoginRequest;
 import ac.rs.singidunum.chatclient.messaging.dtos.LoginResponse;
@@ -32,7 +33,7 @@ public class LoginController {
     public void initialize() {
         dbConfig = DbConfig.getInstance();
         appConfig = AppConfig.getInstance();
-        chatService = new ChatService();
+        chatService = ChatService.getInstance();
 
         connectionState = ((observable, oldValue, newValue) -> {
            statusLabel.setText(newValue.toString());
@@ -57,10 +58,11 @@ public class LoginController {
         }
 
         // Username dohvatio iz baze
-        LoginRequest lr = new LoginRequest("Teodor");
+        UserProfile userProfile = DbConfig.getInstance().getUserProfile();
+        LoginRequest lr = new LoginRequest(userProfile.getUsername());
         chatService.connect(appConfig.getProperty("app.ws"))
                 .thenCompose(ignore -> chatService.login(lr))
-                .thenAccept(this::handleLoginResponse)
+                .thenAccept(result -> handleLoginResponse(result, userProfile))
                 .exceptionally(error -> {
                     dbConfig.close();
 
@@ -71,10 +73,14 @@ public class LoginController {
                 });
     }
 
-    public void handleLoginResponse(LoginResponse response) {
+    public void handleLoginResponse(LoginResponse response, UserProfile profile) {
         // Uradim jos neku logiku za potvrdu identiteta
         // Proveravamo da li treba poslati serveru jos neke kljuceve
         // Dodatne operacije na lokalnom nivou
+
+        appConfig.setUsername(profile.getUsername());
+        appConfig.setEmail(profile.getEmail());
+
         Platform.runLater(() -> {
             SceneManager.getInstance().switchScene("chat-view");
         });
