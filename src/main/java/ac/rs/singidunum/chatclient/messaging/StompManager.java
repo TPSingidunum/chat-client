@@ -82,10 +82,10 @@ public class StompManager {
     }
 
     public <T> SubscriptionHandle subscribe(
-        String destination,
-        Class<T> payloadType,
-        Consumer<T> onMessage,
-        Consumer<Throwable> onError
+            String destination,
+            Class<T> payloadType,
+            Consumer<T> onMessage,
+            Consumer<Throwable> onError
     ) {
         String id = UUID.randomUUID().toString();
         StompSubscriptionRequest<T> request = new StompSubscriptionRequest<>(

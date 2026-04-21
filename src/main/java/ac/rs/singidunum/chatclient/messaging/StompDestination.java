@@ -1,7 +1,8 @@
 package ac.rs.singidunum.chatclient.messaging;
 
 public enum StompDestination {
-    USER_LOGIN("/app/auth.login"),
+    APP_AUTH_LOGIN("/app/auth.login"),
+    USER_QUEUE_AUTH("/user/queue/auth"),
     USER_CONNECTED("/app/users.connected"),
     CHAT_SEND("/app/chat.send"),
     ;
@@ -10,5 +11,10 @@ public enum StompDestination {
 
     StompDestination(String text) {
         this.text = text;
+    }
+
+    @Override
+    public String toString() {
+        return text;
     }
 }

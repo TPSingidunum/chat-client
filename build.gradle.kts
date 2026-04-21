@@ -27,7 +27,7 @@ tasks.withType<JavaCompile> {
 
 application {
     mainModule.set("ac.rs.singidunum.chatclient")
-    mainClass.set("ac.rs.singidunum.chatclient.HelloApplication")
+    mainClass.set("ac.rs.singidunum.chatclient.Launcher")
 }
 
 javafx {

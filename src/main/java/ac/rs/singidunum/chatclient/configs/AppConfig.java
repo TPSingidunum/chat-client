@@ -19,7 +19,7 @@ public class AppConfig {
     private static String DEFAULT_USER_CERT_PATH = "cert/user.pem";
     private static String DEFAULT_USER_KEY_PATH = "cert/user.key";
     private static String DEFAULT_SERVER_CERT_PATH = "cert/server.pem";
-    private static String DEFAULT_WS_PATH = "http://localhost:8080/stomp";
+    private static String DEFAULT_WS_PATH = "ws://localhost:8080/stomp";
     private static String DEFAULT_HTTP_PATH = "http://localhost:8080";
 
     private AppConfig() {

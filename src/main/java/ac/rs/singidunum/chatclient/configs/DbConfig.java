@@ -84,6 +84,7 @@ public class DbConfig {
     }
 
     public void close() {
+        System.out.println("Closing DB");
         try {
             if ( connection != null && !connection.isClosed()) {
                 connection.close();
