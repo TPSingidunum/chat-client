@@ -1,22 +1,22 @@
 package ac.rs.singidunum.chatclient.messaging.dtos;
 
 public class LoginResponse {
-    private boolean result;
+    private String result;
     private String text;
 
     public LoginResponse() {
     }
 
-    public LoginResponse(boolean result, String text) {
+    public LoginResponse(String result, String text) {
         this.result = result;
         this.text = text;
     }
 
-    public boolean isResult() {
+    public String getResult() {
         return result;
     }
 
-    public void setResult(boolean result) {
+    public void setResult(String result) {
         this.result = result;
     }
 
@@ -26,5 +26,13 @@ public class LoginResponse {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    @Override
+    public String toString() {
+        return "LoginResponse{" +
+                "result='" + result + '\'' +
+                ", text='" + text + '\'' +
+                '}';
     }
 }
