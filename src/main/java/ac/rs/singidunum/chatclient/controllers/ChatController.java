@@ -5,6 +5,8 @@ import ac.rs.singidunum.chatclient.configs.DbConfig;
 import ac.rs.singidunum.chatclient.messaging.ConnectionState;
 import ac.rs.singidunum.chatclient.messaging.StompDestination;
 import ac.rs.singidunum.chatclient.messaging.SubscriptionHandle;
+import ac.rs.singidunum.chatclient.messaging.dtos.SendMessageRequest;
+import ac.rs.singidunum.chatclient.messaging.dtos.SendMessageResponse;
 import ac.rs.singidunum.chatclient.services.ChatService;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -19,9 +21,6 @@ import javafx.scene.control.TextField;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 public class ChatController {
     public Label statusLabel;
@@ -38,6 +37,8 @@ public class ChatController {
     // Subscription Channels
     private SubscriptionHandle topicUsersSubscription;
     private SubscriptionHandle userQueueConnectedSubscription;
+    private SubscriptionHandle topicChatSubscription;
+
 
     @FXML
     public void initialize() {
@@ -53,6 +54,7 @@ public class ChatController {
         statusLabel.setText(chatService.getConnectionState().name());
 
         conversationList.setItems(FXCollections.observableArrayList("Loading users"));
+        messageList.setItems(FXCollections.observableArrayList("Awaiting messages ..."));
 
         // Subscribe to channels
         topicUsersSubscription = chatService.subscribeToTopicUsers(
@@ -73,6 +75,17 @@ public class ChatController {
 
                     Platform.runLater(() -> {
                         conversationList.setItems(FXCollections.observableArrayList("Error loading users"));
+                    });
+                }
+        );
+
+        topicChatSubscription = chatService.subscribeToTopicChat(
+                this::updateChatList,
+                throwable -> {
+                    throwable.printStackTrace();
+
+                    Platform.runLater(() -> {
+                        messageList.getItems().add("Error has happened");
                     });
                 }
         );
@@ -108,7 +121,19 @@ public class ChatController {
         });
     }
 
+    private void updateChatList(SendMessageResponse response) {
+        System.out.println("Chat Update is happening");
+
+        Platform.runLater(() -> {
+            messageList.getItems().add(response.toString());
+        });
+    }
+
     public void onSendClick(ActionEvent actionEvent) {
+        String payload = messageInput.getText();
+        SendMessageRequest request = new SendMessageRequest(payload);
+
+        chatService.send(StompDestination.APP_CHAT_SEND.toString(), request);
     }
 
     public void onLogoutAction(ActionEvent actionEvent) {

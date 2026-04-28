@@ -8,6 +8,7 @@ import ac.rs.singidunum.chatclient.messaging.SubscriptionHandle;
 import ac.rs.singidunum.chatclient.messaging.dtos.ActiveUsers;
 import ac.rs.singidunum.chatclient.messaging.dtos.LoginRequest;
 import ac.rs.singidunum.chatclient.messaging.dtos.LoginResponse;
+import ac.rs.singidunum.chatclient.messaging.dtos.SendMessageResponse;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -84,6 +85,18 @@ public class ChatService {
                 StompDestination.TOPIC_USERS.toString(),
                 List.class,
                 payload -> onMessage.accept(payload.stream().map(String::valueOf).toList()),
+                onError
+        );
+    }
+
+    public SubscriptionHandle subscribeToTopicChat(
+            Consumer<SendMessageResponse> onMessage,
+            Consumer<Throwable> onError
+    ) {
+        return stompManager.subscribe(
+                StompDestination.TOPIC_CHAT.toString(),
+                SendMessageResponse.class,
+                onMessage,
                 onError
         );
     }
