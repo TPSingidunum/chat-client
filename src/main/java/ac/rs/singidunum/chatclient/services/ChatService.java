@@ -77,10 +77,15 @@ public class ChatService {
     }
 
     public SubscriptionHandle subscribeToUsers(
-            Consumer<ActiveUsers> onMessage,
+            Consumer<List<String>> onMessage,
             Consumer<Throwable> onError
     ) {
-        return stompManager.subscribe(StompDestination.TOPIC_USERS.toString(), ActiveUsers.class, onMessage, onError);
+        return stompManager.subscribe(
+                StompDestination.TOPIC_USERS.toString(),
+                List.class,
+                payload -> onMessage.accept(payload.stream().map(String::valueOf).toList()),
+                onError
+        );
     }
 
     public void setConnectionState (ConnectionState state) {
