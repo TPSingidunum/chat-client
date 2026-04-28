@@ -76,7 +76,7 @@ public class ChatService {
         return result;
     }
 
-    public SubscriptionHandle subscribeToUsers(
+    public SubscriptionHandle subscribeToTopicUsers(
             Consumer<List<String>> onMessage,
             Consumer<Throwable> onError
     ) {
@@ -86,6 +86,22 @@ public class ChatService {
                 payload -> onMessage.accept(payload.stream().map(String::valueOf).toList()),
                 onError
         );
+    }
+
+    public SubscriptionHandle subscribeToUserQueueConnected(
+            Consumer<List<String>> onMessage,
+            Consumer<Throwable> onError
+    ) {
+        return stompManager.subscribe(
+                StompDestination.USER_QUEUE_CONNECTED.toString(),
+                List.class,
+                payload -> onMessage.accept(payload.stream().map(String::valueOf).toList()),
+                onError
+        );
+    }
+
+    public void send(String destination, Object payload) {
+        stompManager.send(destination, payload);
     }
 
     public void setConnectionState (ConnectionState state) {
